@@ -1,0 +1,4 @@
+rootProject.name = 'sidewars'
+
+
+include 'sidewars-core', 'sidewars-bukkit'

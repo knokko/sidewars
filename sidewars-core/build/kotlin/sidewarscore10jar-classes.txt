@@ -1,0 +1,1 @@
+C:\Users\20182191\Documents\kotlin\SideWars splitted\sidewars-core\build\classes\kotlin\main\test\CoreTestNumberKt.class
