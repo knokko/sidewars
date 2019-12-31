@@ -1,4 +1,0 @@
-name: SideWars
-main: plugin.SideWarsPlugin
-version: "0.1"
-api-version: "1.13"
