@@ -1,4 +1,4 @@
-package plugin
+package sidewars.bukkit
 
 import org.bukkit.plugin.java.JavaPlugin
 
