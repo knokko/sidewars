@@ -1,5 +1,7 @@
 package org.grandknock.sidewars.core.command.management;
 
+import org.grandknock.sidewars.core.command.SWCommandSender;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class SubCommandManager {
         }
     }
 
-    public boolean execute(String[] args) {
+    public boolean execute(String[] args, SWCommandSender sender) {
 
         // If there are no arguments, no sub command can be executed
         if (args.length == 0) {
@@ -40,7 +42,7 @@ public class SubCommandManager {
             if (sub.meta.name().equals(args[0])) {
 
                 // If so, execute it and return true
-                sub.execute(Arrays.copyOfRange(args, 1, args.length));
+                sub.execute(Arrays.copyOfRange(args, 1, args.length), sender);
                 return true;
             }
         }
@@ -62,9 +64,9 @@ public class SubCommandManager {
             this.meta = meta;
         }
 
-        void execute(String[] subArgs) {
+        void execute(String[] subArgs, SWCommandSender sender) {
             try {
-                method.invoke(methodOwner, (Object) subArgs);
+                method.invoke(methodOwner, subArgs, sender);
             } catch (IllegalAccessException ex) {
                 throw new Error(ex);
             } catch (InvocationTargetException ex) {

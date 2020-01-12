@@ -1,5 +1,6 @@
 package org.grandknock.sidewars.core.command.management;
 
+import org.grandknock.sidewars.core.command.SWCommandSender;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -12,6 +13,14 @@ public class TestSubCommandManager {
     private static final String[] JUST_SECOND = { "second" };
     private static final String[] JUST_THIRD = { "third" };
 
+    private static final SWCommandSender TEST_SENDER = new SWCommandSender() {
+
+        @Override
+        public boolean hasPermission(String permission) {
+            return true;
+        }
+    };
+
     @Test
     public void testExecutes() {
         DummyCommands dummy = new DummyCommands();
@@ -21,15 +30,15 @@ public class TestSubCommandManager {
         assertEquals(0, dummy.testValue);
 
         // Execute first should increment it by 1
-        assertTrue(manager.execute(JUST_FIRST));
+        assertTrue(manager.execute(JUST_FIRST, TEST_SENDER));
         assertEquals(1, dummy.testValue);
 
         // Execute second should increase it from 1 to 6
-        assertTrue(manager.execute(JUST_SECOND));
+        assertTrue(manager.execute(JUST_SECOND, TEST_SENDER));
         assertEquals(6, dummy.testValue);
 
         // There is no third subcommand
-        assertFalse(manager.execute(JUST_THIRD));
+        assertFalse(manager.execute(JUST_THIRD, TEST_SENDER));
         assertEquals(6, dummy.testValue);
     }
 
@@ -46,11 +55,11 @@ public class TestSubCommandManager {
         assertNull(remember.prevArgs);
 
         // Now prevArgs should become an empty string array
-        manager.execute(empty);
+        manager.execute(empty, TEST_SENDER);
         assertArrayEquals(new String[0], remember.prevArgs);
 
         // Now prevArgs should become a non-empty string array
-        manager.execute(notEmpty);
+        manager.execute(notEmpty, TEST_SENDER);
         assertArrayEquals(new String[] { "something", "also" }, remember.prevArgs);
     }
 
@@ -59,12 +68,12 @@ public class TestSubCommandManager {
         int testValue = 0;
 
         @SubCommand(name="first")
-        public void executeFirst(String[] subArgs) {
+        public void executeFirst(String[] subArgs, SWCommandSender sender) {
             testValue++;
         }
 
         @SubCommand(name="second")
-        public void executeSecond(String[] subArgs) {
+        public void executeSecond(String[] subArgs, SWCommandSender sender) {
             testValue += 5;
         }
     }
@@ -74,7 +83,7 @@ public class TestSubCommandManager {
         String[] prevArgs = null;
 
         @SubCommand(name="remember")
-        public void remember(String[] subArgs) {
+        public void remember(String[] subArgs, SWCommandSender sender) {
             prevArgs = subArgs;
         }
     }
