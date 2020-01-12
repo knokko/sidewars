@@ -1,8 +1,6 @@
 package org.grandknock.sidewars.core.command;
 
-public interface SWCommandSender {
-
-    boolean hasPermission(String permission);
+public interface SWCommandSender extends PermissionOwner {
 
     void sendMessage(MessageType type, String message);
 

@@ -3,12 +3,13 @@ package org.grandknock.sidewars.bukkit.command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.grandknock.sidewars.core.command.SWCommandSender;
+import org.grandknock.sidewars.core.entity.SWPlayer;
 
 public class CommandManager {
 
     public SWCommandSender toSWSender(CommandSender bukkitSender) {
         if (bukkitSender instanceof Player) {
-            // TODO Do your think Grantis
+            return new SWPlayer(new PlayerPermissionOwner((Player) bukkitSender));
         } else {
             return new NonPlayerCommandSender(bukkitSender);
         }
