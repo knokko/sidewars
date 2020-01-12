@@ -2,3 +2,7 @@ name: SideWars
 main: org.grandknock.sidewars.bukkit.SideWarsPlugin
 version: "0.1"
 api-version: "1.13"
+commands:
+  sidewars:
+    aliases: [sw]
+    description: "The command for the SideWars minigame plug-in"

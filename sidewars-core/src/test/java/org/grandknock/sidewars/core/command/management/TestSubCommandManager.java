@@ -19,6 +19,11 @@ public class TestSubCommandManager {
         public boolean hasPermission(String permission) {
             return true;
         }
+
+        @Override
+        public void sendMessage(MessageType type, String message) {
+            throw new UnsupportedOperationException("No messages in these test cases");
+        }
     };
 
     @Test
