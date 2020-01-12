@@ -2,6 +2,8 @@ package org.grandknock.sidewars.core.command.management;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class TestSubCommandManager {
@@ -31,6 +33,27 @@ public class TestSubCommandManager {
         assertEquals(6, dummy.testValue);
     }
 
+    @Test
+    public void testArgs() {
+
+        String[] empty = { "remember" };
+        String[] notEmpty = { "remember", "something", "also" };
+
+        RememberArgsCommand remember = new RememberArgsCommand();
+        SubCommandManager manager = new SubCommandManager(remember);
+
+        // prevArgs should initially be null
+        assertNull(remember.prevArgs);
+
+        // Now prevArgs should become an empty string array
+        manager.execute(empty);
+        assertArrayEquals(new String[0], remember.prevArgs);
+
+        // Now prevArgs should become a non-empty string array
+        manager.execute(notEmpty);
+        assertArrayEquals(new String[] { "something", "also" }, remember.prevArgs);
+    }
+
     private static class DummyCommands {
 
         int testValue = 0;
@@ -43,6 +66,16 @@ public class TestSubCommandManager {
         @SubCommand(name="second")
         public void executeSecond(String[] subArgs) {
             testValue += 5;
+        }
+    }
+
+    private static class RememberArgsCommand {
+
+        String[] prevArgs = null;
+
+        @SubCommand(name="remember")
+        public void remember(String[] subArgs) {
+            prevArgs = subArgs;
         }
     }
 }
