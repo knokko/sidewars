@@ -5,7 +5,8 @@ import org.grandknock.sidewars.core.command.SWCommandSender;
 
 public class CommandManager {
 
-    public SWCommandSender toSideWarsCommandSender(CommandSender bukkitSender) {
+    public SWCommandSender toSWSender(CommandSender bukkitSender) {
         // TODO Implement this
+
     }
 }

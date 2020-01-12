@@ -30,7 +30,7 @@ public class SideWarsPlugin extends JavaPlugin {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        sideWarsInstance.processCommand(args, commandManager.toSideWarsCommandSender(sender));
+        sideWarsInstance.processCommand(args, commandManager.toSWSender(sender));
         return true;
     }
 }
