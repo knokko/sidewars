@@ -29,6 +29,7 @@ project(':sidewars-core') {
         testCompile group: 'junit', name: 'junit', version: '4.12'
 
         compileOnly "com.sk89q.worldedit:worldedit-core:7.1.0-SNAPSHOT"
+        testCompile "com.sk89q.worldedit:worldedit-core:7.1.0-SNAPSHOT"
     }
 }
 
