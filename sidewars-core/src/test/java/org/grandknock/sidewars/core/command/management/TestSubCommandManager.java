@@ -1,5 +1,6 @@
 package org.grandknock.sidewars.core.command.management;
 
+import com.sk89q.worldedit.LocalSession;
 import org.grandknock.sidewars.core.command.SWCommandSender;
 import org.junit.Test;
 
@@ -23,6 +24,11 @@ public class TestSubCommandManager {
         @Override
         public void sendMessage(MessageType type, String message) {
             throw new UnsupportedOperationException("No messages in these test cases");
+        }
+
+        @Override
+        public LocalSession getWorldEditSession() {
+            throw new UnsupportedOperationException("No sessions in these test cases");
         }
     };
 
