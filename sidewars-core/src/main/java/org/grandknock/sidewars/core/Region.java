@@ -5,9 +5,9 @@ import java.util.UUID;
 public class Region {
 
     public final int minX, minY, minZ, maxX, maxY, maxZ;
-    public final UUID worldID;
+    public final String worldID;
 
-    public Region(UUID worldID, int minX, int minY, int minZ, int maxX, int maxY, int maxZ){
+    public Region(String worldID, int minX, int minY, int minZ, int maxX, int maxY, int maxZ){
         this.worldID = worldID;
         this.minX = minX;
         this.minY = minY;
