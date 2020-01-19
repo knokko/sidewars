@@ -41,8 +41,13 @@ public class SubCommandManager {
         for (SubCommandEntry sub : subCommands) {
             if (sub.meta.name().equals(args[0])) {
 
-                // If so, execute it and return true
-                sub.execute(Arrays.copyOfRange(args, 1, args.length), sender);
+                // If so, execute it if the sender has the right permissions and return true
+                String permission = sub.meta.permission();
+                if (permission.isEmpty() || sender.hasPermission(permission))
+                    sub.execute(Arrays.copyOfRange(args, 1, args.length), sender);
+                else
+                    sender.sendMessage(SWCommandSender.MessageType.UNAUTHORIZED,
+                            "You don't have access to this command.");
                 return true;
             }
         }
