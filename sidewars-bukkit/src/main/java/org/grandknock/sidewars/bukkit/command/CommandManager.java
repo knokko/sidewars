@@ -10,7 +10,7 @@ public class CommandManager {
     public SWCommandSender toSWSender(CommandSender bukkitSender) {
         if (bukkitSender instanceof Player) {
             Player p = (Player) bukkitSender;
-            return new SWPlayer(new PlayerPermissionOwner(p), new PlayerSessionOwner(p));
+            return new SWPlayer(new PlayerPermissionOwner(p), new PlayerSessionOwner(p), p.getWorld().getName());
         } else {
             return new NonPlayerCommandSender(bukkitSender);
         }

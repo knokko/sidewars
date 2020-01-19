@@ -10,9 +10,12 @@ public class SWPlayer implements SWCommandSender {
     private final PermissionOwner permissions;
     private final WESessionOwner weSessionOwner;
 
-    public SWPlayer(PermissionOwner permissions, WESessionOwner weSessionOwner) {
+    private String worldID;
+
+    public SWPlayer(PermissionOwner permissions, WESessionOwner weSessionOwner, String worldID) {
         this.permissions = permissions;
         this.weSessionOwner = weSessionOwner;
+        this.worldID = worldID;
     }
 
     @Override
@@ -28,5 +31,9 @@ public class SWPlayer implements SWCommandSender {
     @Override
     public LocalSession getWorldEditSession() {
         return weSessionOwner.getSession();
+    }
+
+    public String getWorldID() {
+        return worldID;
     }
 }
