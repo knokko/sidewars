@@ -37,6 +37,8 @@ public class ArenaCommands {
 
             ArenaPrototype arenaPrototype = new ArenaPrototype(args[0], region);
             sideWars.addArenaPrototype(arenaPrototype);
+            sender.sendMessage(MessageType.SUCCESS, "Arena " + arenaPrototype.getName() +
+                    " was created successfully");
         }
     }
 
