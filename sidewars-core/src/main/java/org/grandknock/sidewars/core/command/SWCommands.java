@@ -16,7 +16,7 @@ public class SWCommands {
     @SubCommand(name="arena")
     public void processArena(String[] args, SWCommandSender sender) {
         if (!arenaManager.execute(args, sender)) {
-            sender.sendMessage(SWCommandSender.MessageType.ERROR, "Use /sw arena/create");
+            sender.sendMessage(SWCommandSender.MessageType.ERROR, "Use /sw arena create/edit/list");
         }
     }
 }
