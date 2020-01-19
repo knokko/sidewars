@@ -20,8 +20,13 @@ public class ArenaCommands {
         this.sideWars = sideWars;
     }
 
-    @SubCommand(name="create")
+    @SubCommand(name = "create", permission = "sidewars.arena.create")
     public void handleCreation(String[] args, SWCommandSender sender) {
+        if (args.length != 1) {
+            sender.sendMessage(MessageType.ERROR, "You should use /sw arena create <name>");
+            return;
+        }
+
         if(sender instanceof SWPlayer) {
             try {
                 SWPlayer player = (SWPlayer) sender;
@@ -59,14 +64,14 @@ public class ArenaCommands {
         }
     }
 
-    @SubCommand(name="list")
+    @SubCommand(name = "list", permission = "sidewars.arena.list")
     public void handleList(String[] args, SWCommandSender sender) {
         sender.sendMessage(MessageType.INFO, "The arena's are:");
         for (ArenaPrototype arena : sideWars.getArenaPrototypes())
             sender.sendMessage(MessageType.INFO, arena.getName());
     }
 
-    @SubCommand(name="info")
+    @SubCommand(name="info", permission = "sidewars.arena.info")
     public void handleInfo(String[] args, SWCommandSender sender) {
         if (args.length != 1) {
             sender.sendMessage(MessageType.ERROR, "You should use /sw arena info <name>");
