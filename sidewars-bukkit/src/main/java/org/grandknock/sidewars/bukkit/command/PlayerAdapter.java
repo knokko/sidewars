@@ -25,6 +25,7 @@ public class PlayerAdapter extends CommandSenderAdapter implements SWPlayer {
     public void sendMessage(MessageType type, String message) {
         ChatColor color;
         switch (type) {
+            case UNAUTHORIZED: color = ChatColor.DARK_RED; break;
             case ERROR: color = ChatColor.RED; break;
             case INFO: color = ChatColor.YELLOW; break;
             case SUCCESS: color = ChatColor.GREEN; break;

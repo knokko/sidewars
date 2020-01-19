@@ -14,6 +14,7 @@ public interface SWCommandSender extends PermissionOwner {
 
     enum MessageType {
 
+        UNAUTHORIZED,
         ERROR,
         SUCCESS,
         INFO
