@@ -4,11 +4,18 @@ import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.session.SessionOwner;
+import org.grandknock.sidewars.core.SideWars;
 import org.grandknock.sidewars.core.command.SWCommandSender;
 import org.grandknock.sidewars.core.command.management.SubCommand;
 import org.grandknock.sidewars.core.entity.SWPlayer;
 
 public class ArenaCommands {
+
+    private final SideWars sideWars;
+
+    public ArenaCommands(SideWars sideWars) {
+        this.sideWars = sideWars;
+    }
 
     @SubCommand(name="create")
     public void handleCreation(String[] args, SWCommandSender sender) throws IncompleteRegionException {

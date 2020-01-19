@@ -10,11 +10,13 @@ import java.util.Set;
 
 public class SideWars {
 
-    private final SubCommandManager commandManager = new SubCommandManager(new SWCommands());
+    private final SubCommandManager commandManager;
 
     private final Set<ArenaPrototype> arenas;
 
     public SideWars() {
+        commandManager = new SubCommandManager(new SWCommands(this));
+
         arenas = new HashSet<>();
     }
 
