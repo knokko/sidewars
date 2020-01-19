@@ -24,8 +24,19 @@ public class SideWars {
         }
     }
 
-    public void addArenaPrototype(ArenaPrototype proto) {
-        // TODO Validation checks
+    /**
+     * Adds an ArenaPrototype to this SideWars instance.
+     *
+     * If this SideWars instance already has an ArenaPrototype with the same name as {@code proto},
+     * an IllegalArgumentException will be thrown instead.
+     *
+     * @param proto The ArenaPrototype to add
+     * @throws IllegalArgumentException If there is already an ArenaPrototype with the same name
+     */
+    public void addArenaPrototype(ArenaPrototype proto) throws IllegalArgumentException{
+        if (getArenaPrototype(proto.getName()) != null) {
+            throw new IllegalArgumentException("There is already an arena with name " + proto.getName());
+        }
         arenas.add(proto);
     }
 
@@ -33,5 +44,17 @@ public class SideWars {
         return arenas;
     }
 
-    // TODO Add getArenaPrototype method
+    /**
+     * Finds and returns the ArenaPrototype with {@code name} if such an arena prototype exists.
+     * If no ArenaPrototype with the given name was found, this method will return null.
+     * @param name The name of the arena prototype to get
+     * @return The arena prototype with {@code name} or null if no ArenaPrototype has the given name
+     */
+    public ArenaPrototype getArenaPrototype(String name) {
+        for (ArenaPrototype arena : arenas)
+            if (arena.getName().equals(name))
+                return arena;
+
+        return null;
+    }
 }
