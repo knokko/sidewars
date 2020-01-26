@@ -5,13 +5,13 @@ import java.io.OutputStream;
 
 public interface FileManager {
 
-    InputStream readSideWarsBinary();
+    InputStream readSWBinary();
 
-    OutputStream writeSideWarsBinary();
+    OutputStream writeSWBinary();
 
-    InputStream readSideWarsConfig();
+    InputStream readSWConfig();
 
-    OutputStream createSideWarsConfig();
+    OutputStream createSWConfig();
 
     InputStream readArenaPrototypeConfig(String arenaPrototypeName);
 

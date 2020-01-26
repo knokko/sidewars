@@ -13,16 +13,16 @@ public class FileDataManager {
         this.files = files;
     }
 
-    public void writeSideWarsConfig() {
+    public void writeSWConfig() {
         // TODO What would the SideWars config be?
     }
 
-    public InputStream readSideWarsBinary() {
-        return files.readSideWarsBinary();
+    public InputStream readSWBinary() {
+        return files.readSWBinary();
     }
 
-    public OutputStream writeSideWarsBinary() {
-        return files.writeSideWarsBinary();
+    public OutputStream writeSWBinary() {
+        return files.writeSWBinary();
     }
 
     public void writeArenaPrototypeConfig(String arenaPrototypeName) {
