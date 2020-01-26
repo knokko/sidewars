@@ -22,8 +22,11 @@ public class ArenaCommands {
 
     @SubCommand(name = "create", permission = "sidewars.arena.create")
     public void handleCreation(String[] args, SWCommandSender sender) {
-        if (args.length != 1) {
-            sender.sendMessage(MessageType.ERROR, "You should use /sw arena create <name>");
+        if (args.length < 1) {
+            sender.sendMessage(MessageType.ERROR, "Use: /sw arena create <name>");
+            return;
+        }else if(args.length > 1) {
+            sender.sendMessage(MessageType.ERROR, "ERROR: You can't use spacing for arena names!");
             return;
         }
 
@@ -73,8 +76,11 @@ public class ArenaCommands {
 
     @SubCommand(name="info", permission = "sidewars.arena.info")
     public void handleInfo(String[] args, SWCommandSender sender) {
-        if (args.length != 1) {
-            sender.sendMessage(MessageType.ERROR, "You should use /sw arena info <name>");
+        if (args.length < 1) {
+            sender.sendMessage(MessageType.ERROR, "Use: /sw arena info <name>");
+            return;
+        }else if(args.length > 1) {
+            sender.sendMessage(MessageType.ERROR, "ERROR: You can't use spacing for arena names!");
             return;
         }
 
