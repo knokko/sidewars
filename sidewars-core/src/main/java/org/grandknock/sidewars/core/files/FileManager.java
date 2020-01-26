@@ -1,23 +1,32 @@
 package org.grandknock.sidewars.core.files;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 public interface FileManager {
 
-    InputStream readSWBinary();
+    InputStream readSWBinary() throws IOException;
 
-    OutputStream writeSWBinary();
+    OutputStream writeSWBinary() throws IOException;
 
-    InputStream readSWConfig();
+    boolean hasSWBinary();
 
-    OutputStream createSWConfig();
+    InputStream readSWConfig() throws IOException;
 
-    InputStream readArenaPrototypeConfig(String arenaPrototypeName);
+    OutputStream createSWConfig() throws IOException;
 
-    OutputStream writeArenaPrototypeConfig(String arenaPrototypeName);
+    boolean hasSWConfig();
 
-    InputStream readArenaPrototypeBinary(String arenaPrototypeName);
+    InputStream readArenaPrototypeConfig(String arenaPrototypeName) throws IOException;
 
-    OutputStream writeArenaPrototypeBinary(String arenaPrototypeName);
+    OutputStream createArenaPrototypeConfig(String arenaPrototypeName) throws IOException;
+
+    boolean hasArenaPrototypeConfig(String arenaPrototypeName);
+
+    InputStream readArenaPrototypeBinary(String arenaPrototypeName) throws IOException;
+
+    OutputStream writeArenaPrototypeBinary(String arenaPrototypeName) throws IOException;
+
+    boolean hasArenaPrototypeBinary(String arenaPrototypeName);
 }

@@ -4,6 +4,8 @@ import org.grandknock.sidewars.core.arena.ArenaPrototype;
 import org.grandknock.sidewars.core.command.SWCommandSender;
 import org.grandknock.sidewars.core.command.SWCommands;
 import org.grandknock.sidewars.core.command.management.SubCommandManager;
+import org.grandknock.sidewars.core.files.FileDataManager;
+import org.grandknock.sidewars.core.files.FileManager;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,11 +13,13 @@ import java.util.Set;
 public class SideWars {
 
     private final SubCommandManager commandManager;
+    private final FileDataManager fileManager;
 
     private final Set<ArenaPrototype> arenas;
 
-    public SideWars() {
+    public SideWars(FileManager fileHandler) {
         commandManager = new SubCommandManager(new SWCommands(this));
+        fileManager = new FileDataManager(fileHandler);
 
         arenas = new HashSet<>();
     }
