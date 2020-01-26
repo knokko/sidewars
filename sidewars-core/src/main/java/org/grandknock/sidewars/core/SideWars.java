@@ -24,6 +24,14 @@ public class SideWars {
         arenas = new HashSet<>();
     }
 
+    public void saveData() {
+        // TODO Well... save all unsaved changes
+    }
+
+    public void loadData() {
+        // TODO Wel... load the data
+    }
+
     public void processCommand(String[] args, SWCommandSender sender) {
         if (!commandManager.execute(args, sender)) {
             sender.sendMessage(SWCommandSender.MessageType.ERROR, "Use /sw arena");

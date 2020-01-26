@@ -17,8 +17,9 @@ public class FileDataManager {
         this.yaml = new Yaml();
     }
 
-    private Map<String,Object> parseYaml(InputStream input) throws YAMLException {
+    private Map<String,Object> parseYaml(InputStream input) throws YAMLException, IOException {
         Object config = yaml.load(input);
+        input.close();
         if (config instanceof Map) {
 
             // I can't use instanceof with generics, so this will have to do...
@@ -30,6 +31,8 @@ public class FileDataManager {
 
     private void writeYaml(OutputStream output, Map<String,Object> data) throws IOException {
         yaml.dump(data, new OutputStreamWriter(output));
+        output.flush();
+        output.close();
     }
 
     public Map<String,Object> readSWConfig() throws IOException, YAMLException {

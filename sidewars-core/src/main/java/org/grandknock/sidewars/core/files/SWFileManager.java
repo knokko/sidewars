@@ -15,72 +15,92 @@ public class SWFileManager implements FileManager{
         this.rootDir = rootDir;
     }
 
+    private File getSWConfig() {
+        return new File(rootDir + "/config.yml");
+    }
+
+    private File getSWBinary() {
+        return new File(rootDir + "/data.bin");
+    }
+
+    private InputStream createInput(File file) throws IOException {
+        return Files.newInputStream(file.toPath());
+    }
+
+    private OutputStream createOutput(File file) throws IOException {
+        file.getParentFile().mkdirs();
+        return Files.newOutputStream(file.toPath());
+    }
+
     @Override
     public InputStream readSWBinary() throws IOException {
-        return null;
+        return Files.newInputStream(getSWBinary().toPath());
     }
 
     @Override
     public OutputStream writeSWBinary() throws IOException {
-        return null;
+        return createOutput(getSWBinary());
     }
 
     @Override
     public boolean hasSWBinary() {
-        return false;
+        return getSWBinary().exists();
     }
 
     @Override
     public InputStream readSWConfig() throws IOException {
-        return null;
+        return createInput(getSWConfig());
     }
 
     @Override
     public OutputStream createSWConfig() throws IOException {
-        return null;
+        return createOutput(getSWConfig());
     }
 
     @Override
     public boolean hasSWConfig() {
-        return false;
+        return getSWConfig().exists();
+    }
+
+    private File getArenaPrototypeFolder(String name) {
+        return new File(rootDir + "/ArenaPrototype/" + name);
+    }
+
+    private File getArenaPrototypeConfig(String name) {
+        return new File(getArenaPrototypeFolder(name) + "/config.yml");
+    }
+
+    private File getArenaPrototypeBinary(String name) {
+        return new File(getArenaPrototypeFolder(name) + "/data.bin");
     }
 
     @Override
     public InputStream readArenaPrototypeConfig(String arenaPrototypeName) throws IOException {
-        return null;
+        return createInput(getArenaPrototypeConfig(arenaPrototypeName));
     }
 
     @Override
     public OutputStream createArenaPrototypeConfig(String arenaPrototypeName) throws IOException {
-
+        return createOutput(getArenaPrototypeConfig(arenaPrototypeName));
     }
 
     @Override
     public boolean hasArenaPrototypeConfig(String arenaPrototypeName) {
-        return false;
+        return getArenaPrototypeFolder(arenaPrototypeName).exists();
     }
 
     @Override
     public InputStream readArenaPrototypeBinary(String arenaPrototypeName) throws IOException {
-        return null;
+        return createInput(getArenaPrototypeBinary(arenaPrototypeName));
     }
 
     @Override
     public OutputStream writeArenaPrototypeBinary(String arenaPrototypeName) throws IOException {
-        return null;
+        return createOutput(getArenaPrototypeBinary(arenaPrototypeName));
     }
 
     @Override
     public boolean hasArenaPrototypeBinary(String arenaPrototypeName) {
-        return false;
+        return getArenaPrototypeBinary(arenaPrototypeName).exists();
     }
-
-    private File getSWFile() {
-        return null;
-    }
-
-    private File getArenaPrototypeFile() {
-        return null;
-    }
-
 }

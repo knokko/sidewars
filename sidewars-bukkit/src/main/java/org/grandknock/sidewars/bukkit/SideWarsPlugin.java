@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.grandknock.sidewars.bukkit.command.CommandManager;
 import org.grandknock.sidewars.core.SideWars;
+import org.grandknock.sidewars.core.files.SWFileManager;
 
 public class SideWarsPlugin extends JavaPlugin {
 
@@ -14,8 +15,8 @@ public class SideWarsPlugin extends JavaPlugin {
 
     @Override
     public void onEnable(){
-        sideWarsInstance = new SideWars();
-        // TODO Load data
+        sideWarsInstance = new SideWars(new SWFileManager(getDataFolder()));
+        sideWarsInstance.loadData();
 
         commandManager = new CommandManager();
     }
@@ -24,7 +25,7 @@ public class SideWarsPlugin extends JavaPlugin {
     public void onDisable() {
         commandManager = null;
 
-        // TODO Save data
+        sideWarsInstance.saveData();
         sideWarsInstance = null;
     }
 
