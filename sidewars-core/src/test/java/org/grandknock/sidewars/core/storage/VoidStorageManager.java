@@ -1,10 +1,10 @@
-package org.grandknock.sidewars.core.files;
+package org.grandknock.sidewars.core.storage;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class NoFileManager implements FileManager {
+public class VoidStorageManager implements StorageManager {
 
     @Override
     public InputStream readSWBinary() throws IOException {
@@ -13,7 +13,7 @@ public class NoFileManager implements FileManager {
 
     @Override
     public OutputStream writeSWBinary() throws IOException {
-        throw new IOException();
+        return new VoidOutputStream();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class NoFileManager implements FileManager {
 
     @Override
     public OutputStream createSWConfig() throws IOException {
-        throw new IOException();
+        return new VoidOutputStream();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class NoFileManager implements FileManager {
 
     @Override
     public OutputStream createArenaPrototypeConfig(String arenaPrototypeName) throws IOException {
-        throw new IOException();
+        return new VoidOutputStream();
     }
 
     @Override
@@ -58,11 +58,20 @@ public class NoFileManager implements FileManager {
 
     @Override
     public OutputStream writeArenaPrototypeBinary(String arenaPrototypeName) throws IOException {
-        throw new IOException();
+        return new VoidOutputStream();
     }
 
     @Override
     public boolean hasArenaPrototypeBinary(String arenaPrototypeName) {
         return false;
+    }
+
+    class VoidOutputStream extends OutputStream {
+
+        @Override
+        public void write(int b) throws IOException {
+            // The idea of void is that it forgets everything
+            // So... just don't store it
+        }
     }
 }

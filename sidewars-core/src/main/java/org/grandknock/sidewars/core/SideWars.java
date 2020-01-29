@@ -4,8 +4,8 @@ import org.grandknock.sidewars.core.arena.ArenaPrototype;
 import org.grandknock.sidewars.core.command.SWCommandSender;
 import org.grandknock.sidewars.core.command.SWCommands;
 import org.grandknock.sidewars.core.command.management.SubCommandManager;
-import org.grandknock.sidewars.core.files.FileDataManager;
-import org.grandknock.sidewars.core.files.FileManager;
+import org.grandknock.sidewars.core.storage.StorageHelper;
+import org.grandknock.sidewars.core.storage.StorageManager;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,23 +13,52 @@ import java.util.Set;
 public class SideWars {
 
     private final SubCommandManager commandManager;
-    private final FileDataManager fileManager;
+    private final StorageHelper storageHelper;
 
     private final Set<ArenaPrototype> arenas;
 
-    public SideWars(FileManager fileHandler) {
+    public SideWars(StorageManager fileHandler) {
         commandManager = new SubCommandManager(new SWCommands(this));
-        fileManager = new FileDataManager(fileHandler);
+        storageHelper = new StorageHelper(fileHandler);
 
         arenas = new HashSet<>();
     }
 
     public void saveData() {
-        // TODO Well... save all unsaved changes
+        saveBinary();
+        for (ArenaPrototype arena : arenas) {
+            arena.saveData(storageHelper);
+        }
+    }
+
+    private void saveBinary() {
+        storageHelper.writeSWBinary(output -> {
+
+            // TODO Prepare encoding for updates
+            output.writeInt(arenas.size());
+            for (ArenaPrototype arena : arenas) {
+                output.writeUTF(arena.getName());
+            }
+        });
     }
 
     public void loadData() {
-        // TODO Wel... load the data
+        storageHelper.readSWBinary(input -> {
+
+            // TODO Prepare encoding for updates
+
+            // Load arena prototypes
+            int numArenas = input.readInt();
+            Set<ArenaPrototype> loadedArenas = new HashSet<>(numArenas);
+
+            for (int counter = 0; counter < numArenas; counter++) {
+                loadedArenas.add(new ArenaPrototype(input.readUTF(), storageHelper));
+            }
+            arenas.addAll(loadedArenas);
+
+        }, () -> System.out.println("Couldn't find binary data file of SideWars, " +
+                    "this is ok if you use this plug-in for the first time.")
+        );
     }
 
     public void processCommand(String[] args, SWCommandSender sender) {

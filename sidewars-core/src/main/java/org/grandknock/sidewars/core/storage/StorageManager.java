@@ -1,10 +1,10 @@
-package org.grandknock.sidewars.core.files;
+package org.grandknock.sidewars.core.storage;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public interface FileManager {
+public interface StorageManager {
 
     InputStream readSWBinary() throws IOException;
 

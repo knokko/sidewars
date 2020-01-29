@@ -1,17 +1,16 @@
-package org.grandknock.sidewars.core.files;
+package org.grandknock.sidewars.core.storage;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 
-public class SWFileManager implements FileManager{
+public class FileSystemStorageManager implements StorageManager {
 
     private File rootDir;
 
-    public SWFileManager(File rootDir) {
+    public FileSystemStorageManager(File rootDir) {
         this.rootDir = rootDir;
     }
 
