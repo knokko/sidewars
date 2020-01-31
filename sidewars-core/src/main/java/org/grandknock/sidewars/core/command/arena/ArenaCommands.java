@@ -51,7 +51,7 @@ public class ArenaCommands {
                         player.getWorldID(), minX, minY, minZ, maxX, maxY, maxZ
                 );
 
-                ArenaPrototype arenaPrototype = new ArenaPrototype(args[0], region);
+                ArenaPrototype arenaPrototype = ArenaPrototype.createNew(args[0], region);
                 sideWars.addArenaPrototype(arenaPrototype);
                 sender.sendMessage(MessageType.SUCCESS, "Arena " + arenaPrototype.getName() +
                         " was created successfully");
@@ -96,5 +96,7 @@ public class ArenaCommands {
         sender.sendMessage(MessageType.INFO, "Located in world " + region.worldID +
                 " between (" + region.minX + "," + region.minY + "," + region.minZ + ") and (" +
                 region.maxX + "," + region.maxY + "," + region.maxZ + ")");
+        sender.sendMessage(MessageType.INFO, arena.getNumberOfTeams() +
+                " teams of " + arena.getPlayersPerTeam() + " players");
     }
 }

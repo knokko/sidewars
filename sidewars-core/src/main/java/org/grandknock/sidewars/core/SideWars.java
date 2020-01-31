@@ -17,6 +17,8 @@ public class SideWars {
 
     private final Set<ArenaPrototype> arenas;
 
+    private int arenaPrepTime;
+
     public SideWars(StorageManager fileHandler) {
         commandManager = new SubCommandManager(new SWCommands(this));
         storageHelper = new StorageHelper(fileHandler);
@@ -52,13 +54,19 @@ public class SideWars {
             Set<ArenaPrototype> loadedArenas = new HashSet<>(numArenas);
 
             for (int counter = 0; counter < numArenas; counter++) {
-                loadedArenas.add(new ArenaPrototype(input.readUTF(), storageHelper));
+                loadedArenas.add(ArenaPrototype.loadExisting(storageHelper, input.readUTF()));
             }
             arenas.addAll(loadedArenas);
 
         }, () -> System.out.println("Couldn't find binary data file of SideWars, " +
                     "this is ok if you use this plug-in for the first time.")
         );
+
+        storageHelper.getSWConfig(config -> {
+            arenaPrepTime = (Integer) config.get("ArenaPreparationTime");
+        }, config -> {
+            config.put("ArenaPreparationTime", arenaPrepTime);
+        });
     }
 
     public void processCommand(String[] args, SWCommandSender sender) {
@@ -80,6 +88,7 @@ public class SideWars {
         if (getArenaPrototype(proto.getName()) != null) {
             throw new IllegalArgumentException("There is already an arena with name " + proto.getName());
         }
+        proto.updateConfig(storageHelper);
         arenas.add(proto);
     }
 
