@@ -27,7 +27,7 @@ public class ArenaCommands {
             sender.sendMessage(MessageType.ERROR, "Use: /sw arena create <name>");
             return;
         }else if(args.length > 1) {
-            sender.sendMessage(MessageType.ERROR, "ERROR: You can't use spacing for arena names!");
+            sender.sendMessage(MessageType.ERROR, "You can't use spacing for arena names!");
             return;
         }
 
@@ -81,7 +81,7 @@ public class ArenaCommands {
             sender.sendMessage(MessageType.ERROR, "Use: /sw arena info <name>");
             return;
         }else if(args.length > 1) {
-            sender.sendMessage(MessageType.ERROR, "ERROR: You can't use spacing for arena names!");
+            sender.sendMessage(MessageType.ERROR, "You can't use spacing for arena names!");
             return;
         }
 
@@ -107,20 +107,20 @@ public class ArenaCommands {
         if(sender instanceof SWPlayer) {
             swPlayer = (SWPlayer) sender;
         }else {
-            sender.sendMessage(MessageType.ERROR, "ERROR: You must be a player to use this command!");
+            sender.sendMessage(MessageType.ERROR, "You must be a player to use this command!");
             return;
         }
         if(args.length < 1) {
-            sender.sendMessage(MessageType.ERROR , "ERROR: Use: /sw arena edit <name>");
+            sender.sendMessage(MessageType.ERROR , "Use: /sw arena edit <name>");
             return;
         }else if(args.length > 1) {
-            sender.sendMessage(MessageType.ERROR, "ERROR: You can't use spacing for arena names!");
+            sender.sendMessage(MessageType.ERROR, "You can't use spacing for arena names!");
             return;
         }
 
         ArenaPrototype arena = sideWars.getArenaPrototype(args[0]);
         if(arena == null) {
-            swPlayer.sendMessage(MessageType.ERROR, "ERROR: Arena '" + args[0] + "' not found!");
+            swPlayer.sendMessage(MessageType.ERROR, "Arena '" + args[0] + "' not found!");
             return;
         }
         Session session = sideWars.getSession(swPlayer);

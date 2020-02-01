@@ -33,7 +33,7 @@ public class PlayerAdapter extends CommandSenderAdapter implements SWPlayer {
         ChatColor color;
         switch (type) {
             case UNAUTHORIZED: color = ChatColor.DARK_RED; break;
-            case ERROR: color = ChatColor.RED; break;
+            case ERROR: color = ChatColor.RED; message = "ERROR: " + message; break;
             case INFO: color = ChatColor.YELLOW; break;
             case SUCCESS: color = ChatColor.GREEN; break;
             default: throw new IllegalArgumentException("Unknown message type: " + type);

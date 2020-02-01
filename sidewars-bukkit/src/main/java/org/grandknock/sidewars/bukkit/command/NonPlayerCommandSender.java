@@ -12,6 +12,8 @@ public class NonPlayerCommandSender extends CommandSenderAdapter implements SWCo
 
     @Override
     public void sendMessage(MessageType type, String message) {
+        if (type == MessageType.ERROR)
+            message = "ERROR: " + message;
         bukkitSender.sendMessage(message);
     }
 
