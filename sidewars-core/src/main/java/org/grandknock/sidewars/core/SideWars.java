@@ -13,6 +13,19 @@ import java.util.*;
 
 public class SideWars {
 
+    public static boolean isNameAllowed(String name) {
+        if (name == null || name.isEmpty() || name.length() > 50)
+            return false;
+        for (int index = 0; index < name.length(); index++)
+            if (!isCharAllowed(name.charAt(index)))
+                return false;
+        return true;
+    }
+
+    private static boolean isCharAllowed(char c) {
+        return c == '_' || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
+    }
+
     private final SubCommandManager commandManager;
     private final StorageHelper storageHelper;
 

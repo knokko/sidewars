@@ -52,9 +52,16 @@ public class ArenaCommands {
                         player.getWorldID(), minX, minY, minZ, maxX, maxY, maxZ
                 );
 
-                ArenaPrototype arenaPrototype = ArenaPrototype.createNew(args[0], region);
+                String name = args[0];
+                if (!SideWars.isNameAllowed(name)) {
+                    sender.sendMessage(MessageType.ERROR, "Invalid arena name: only lowercase"
+                    + " letters, numbers and underscores are allowed");
+                    return;
+                }
+
+                ArenaPrototype arenaPrototype = ArenaPrototype.createNew(name, region);
                 sideWars.addArenaPrototype(arenaPrototype);
-                sender.sendMessage(MessageType.SUCCESS, "Arena " + arenaPrototype.getName() +
+                sender.sendMessage(MessageType.SUCCESS, "Arena " + name +
                         " was created successfully");
             } catch (IncompleteRegionException incomplete) {
                 sender.sendMessage(MessageType.ERROR,

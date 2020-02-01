@@ -1,13 +1,14 @@
 package org.grandknock.sidewars.core.arena;
 
 import org.grandknock.sidewars.core.Region;
+import org.grandknock.sidewars.core.SideWars;
 import org.grandknock.sidewars.core.storage.StorageHelper;
 
 import java.util.Map;
 
 public class ArenaPrototype {
 
-    public static ArenaPrototype createNew(String name, Region region) {
+    public static ArenaPrototype createNew(String name, Region region) throws IllegalArgumentException {
         ArenaPrototype arena = new ArenaPrototype(name);
         arena.region = region;
         return arena;
@@ -32,6 +33,8 @@ public class ArenaPrototype {
     private int playersPerTeam;
 
     private ArenaPrototype(String name) {
+        if (!SideWars.isNameAllowed(name))
+            throw new Error("Invalid ArenaPrototype name: " + name);
         this.name = name;
     }
 
