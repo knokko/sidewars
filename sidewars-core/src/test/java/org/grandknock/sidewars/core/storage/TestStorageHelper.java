@@ -1,5 +1,6 @@
 package org.grandknock.sidewars.core.storage;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 
@@ -9,7 +10,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 
@@ -197,7 +197,42 @@ public class TestStorageHelper {
 
     private void checkBinary(InputStream input) throws IOException {
         for (int x = 10; x < 500; x++) {
-            assertEquals(x, input.read());
+            assertEquals(x % 256, input.read());
         }
+    }
+
+    @Test
+    public void testSWConfig() {
+        StorageHelper storage = new StorageHelper(new RAMStorageManager());
+        boolean[] called = {false, false};
+
+        storage.getSWConfig(config -> {
+            called[0] = true;
+            assertEquals(3.14, config.get("pi"));
+            assertEquals("hello", config.get("greet"));
+        }, config -> {
+            called[1] = true;
+            config.put("pi", 3.14);
+            config.put("greet", "hello");
+        });
+
+        assertTrue(called[0]);
+        assertTrue(called[1]);
+    }
+
+    @Test
+    public void testSWBinary() {
+        StorageHelper storage = new StorageHelper(new RAMStorageManager());
+        boolean[] called = {false};
+        storage.readSWBinary(input -> fail(), () -> called[0] = true);
+        assertTrue(called[0]);
+
+        storage.writeSWBinary(this::dumpBinary);
+        called[0] = false;
+        storage.readSWBinary(input -> {
+            called[0] = true;
+            checkBinary(input);
+        }, Assert::fail);
+        assertTrue(called[0]);
     }
 }
