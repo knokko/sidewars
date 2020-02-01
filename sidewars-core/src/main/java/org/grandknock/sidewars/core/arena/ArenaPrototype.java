@@ -4,7 +4,9 @@ import org.grandknock.sidewars.core.Region;
 import org.grandknock.sidewars.core.SideWars;
 import org.grandknock.sidewars.core.storage.StorageHelper;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class ArenaPrototype {
 
@@ -18,6 +20,12 @@ public class ArenaPrototype {
         ArenaPrototype arena = new ArenaPrototype(name);
         storage.readArenaPrototypeBinary(input -> {
             arena.region = Region.load(input);
+
+            int numTeams = input.readInt();
+            Set<TeamPrototype> loadedTeams = new HashSet<>(numTeams);
+            for (int counter = 0; counter < numTeams; counter++)
+                loadedTeams.add(TeamPrototype.loadExisting(storage, name));
+            arena.teams.addAll(loadedTeams);
         }, name);
         arena.updateConfig(storage);
         return arena;
@@ -25,41 +33,51 @@ public class ArenaPrototype {
 
     private String name;
 
+    private final Set<TeamPrototype> teams;
+
     // Binary properties
     private Region region;
 
     // Config properties
-    private int numTeams;
     private int playersPerTeam;
 
     private ArenaPrototype(String name) {
         if (!SideWars.isNameAllowed(name))
             throw new Error("Invalid ArenaPrototype name: " + name);
         this.name = name;
+        this.teams = new HashSet<>();
     }
 
     public void updateConfig(StorageHelper storage) {
         storage.getArenaPrototypeConfig(name, this::read, this::writeDefault);
+        // TODO Update config of all structures
+        for (TeamPrototype team : teams) {
+            team.updateConfig(storage);
+        }
     }
 
     private void read(Map<String,Object> config) {
-        numTeams = (Integer) config.get("NumberOfTeams");
         playersPerTeam = (Integer) config.get("PlayersPerTeam");
     }
 
     private void writeDefault(Map<String,Object> config) {
-        config.put("NumberOfTeams", 2);
         config.put("PlayersPerTeam", 4);
     }
 
     public void saveData(StorageHelper storage) {
         saveBinaryData(storage);
         // TODO Call saveData of all structures of this ArenaPrototype
+        for (TeamPrototype team : teams)
+            team.saveData(storage);
     }
 
     private void saveBinaryData(StorageHelper storage) {
         storage.writeArenaPrototypeBinary(output -> {
             region.save(output);
+
+            output.writeInt(teams.size());
+            for (TeamPrototype team : teams)
+                output.writeUTF(team.getName());
         }, name);
     }
 
@@ -72,7 +90,7 @@ public class ArenaPrototype {
     }
 
     public int getNumberOfTeams() {
-        return numTeams;
+        return teams.size();
     }
 
     public int getPlayersPerTeam() {
