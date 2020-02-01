@@ -9,6 +9,7 @@ import org.grandknock.sidewars.core.arena.ArenaPrototype;
 import org.grandknock.sidewars.core.command.SWCommandSender;
 import org.grandknock.sidewars.core.command.management.SubCommand;
 import org.grandknock.sidewars.core.entity.SWPlayer;
+import org.grandknock.sidewars.core.session.Session;
 
 import static org.grandknock.sidewars.core.command.SWCommandSender.MessageType;
 
@@ -98,5 +99,32 @@ public class ArenaCommands {
                 region.maxX + "," + region.maxY + "," + region.maxZ + ")");
         sender.sendMessage(MessageType.INFO, arena.getNumberOfTeams() +
                 " teams of " + arena.getPlayersPerTeam() + " players");
+    }
+
+    @SubCommand(name="edit", permission = "sidewars.arena.edit")
+    public void handleEdit(String[] args, SWCommandSender sender) {
+        SWPlayer swPlayer;
+        if(sender instanceof SWPlayer) {
+            swPlayer = (SWPlayer) sender;
+        }else {
+            sender.sendMessage(MessageType.ERROR, "ERROR: You must be a player to use this command!");
+            return;
+        }
+        if(args.length < 1) {
+            sender.sendMessage(MessageType.ERROR , "ERROR: Use: /sw arena edit <name>");
+            return;
+        }else if(args.length > 1) {
+            sender.sendMessage(MessageType.ERROR, "ERROR: You can't use spacing for arena names!");
+            return;
+        }
+
+        ArenaPrototype arena = sideWars.getArenaPrototype(args[0]);
+        if(arena == null) {
+            swPlayer.sendMessage(MessageType.ERROR, "ERROR: Arena '" + args[0] + "' not found!");
+            return;
+        }
+        Session session = sideWars.getSession(swPlayer);
+        session.setArenaToEdit(arena);
+        swPlayer.sendMessage(MessageType.SUCCESS, "Now editing arena '" + args[0] + "' !");
     }
 }
