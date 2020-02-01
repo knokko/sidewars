@@ -85,7 +85,7 @@ public class FileSystemStorageManager implements StorageManager {
 
     @Override
     public boolean hasArenaPrototypeConfig(String arenaPrototypeName) {
-        return getArenaPrototypeFolder(arenaPrototypeName).exists();
+        return getArenaPrototypeConfig(arenaPrototypeName).exists();
     }
 
     @Override
