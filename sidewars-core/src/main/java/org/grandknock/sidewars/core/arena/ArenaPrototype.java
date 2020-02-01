@@ -2,6 +2,7 @@ package org.grandknock.sidewars.core.arena;
 
 import org.grandknock.sidewars.core.Region;
 import org.grandknock.sidewars.core.SideWars;
+import org.grandknock.sidewars.core.arena.team.TeamPrototype;
 import org.grandknock.sidewars.core.storage.StorageHelper;
 
 import java.util.HashSet;

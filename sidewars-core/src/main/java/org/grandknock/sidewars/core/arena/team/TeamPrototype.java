@@ -1,4 +1,4 @@
-package org.grandknock.sidewars.core.arena;
+package org.grandknock.sidewars.core.arena.team;
 
 import org.grandknock.sidewars.core.SideWars;
 import org.grandknock.sidewars.core.storage.StorageHelper;
