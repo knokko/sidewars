@@ -7,6 +7,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.grandknock.sidewars.core.entity.SWPlayer;
 
+import java.util.UUID;
+
 public class PlayerAdapter extends CommandSenderAdapter implements SWPlayer {
 
     private final Player player;
@@ -19,6 +21,11 @@ public class PlayerAdapter extends CommandSenderAdapter implements SWPlayer {
     @Override
     public String getWorldID() {
         return player.getWorld().getName();
+    }
+
+    @Override
+    public UUID getPlayerID() {
+        return player.getUniqueId();
     }
 
     @Override

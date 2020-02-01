@@ -4,11 +4,12 @@ import org.grandknock.sidewars.core.arena.ArenaPrototype;
 import org.grandknock.sidewars.core.command.SWCommandSender;
 import org.grandknock.sidewars.core.command.SWCommands;
 import org.grandknock.sidewars.core.command.management.SubCommandManager;
+import org.grandknock.sidewars.core.entity.SWPlayer;
+import org.grandknock.sidewars.core.session.Session;
 import org.grandknock.sidewars.core.storage.StorageHelper;
 import org.grandknock.sidewars.core.storage.StorageManager;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class SideWars {
 
@@ -16,6 +17,7 @@ public class SideWars {
     private final StorageHelper storageHelper;
 
     private final Set<ArenaPrototype> arenas;
+    private final Map<UUID, Session> sessions;
 
     private int arenaPrepTime;
 
@@ -24,6 +26,7 @@ public class SideWars {
         storageHelper = new StorageHelper(fileHandler);
 
         arenas = new HashSet<>();
+        sessions = new HashMap<>();
     }
 
     public void saveData() {
@@ -73,6 +76,15 @@ public class SideWars {
         if (!commandManager.execute(args, sender)) {
             sender.sendMessage(SWCommandSender.MessageType.ERROR, "Use /sw arena");
         }
+    }
+
+    public Session getSession(SWPlayer player) {
+        Session session = sessions.get(player.getPlayerID());
+        if (session == null) {
+            session = new Session();
+            sessions.put(player.getPlayerID(), session);
+        }
+        return session;
     }
 
     /**
