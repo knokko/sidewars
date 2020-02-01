@@ -102,4 +102,46 @@ public class FileSystemStorageManager implements StorageManager {
     public boolean hasArenaPrototypeBinary(String arenaPrototypeName) {
         return getArenaPrototypeBinary(arenaPrototypeName).exists();
     }
+
+    private File getTeamPrototypeFolder(String arenaName, String teamName) {
+        return new File(getArenaPrototypeFolder(arenaName) + "/TeamPrototype/" + teamName);
+    }
+
+    private File getTeamPrototypeConfig(String arenaName, String teamName) {
+        return new File(getTeamPrototypeFolder(arenaName, teamName) + "/config.yml");
+    }
+
+    private File getTeamPrototypeBinary(String arenaName, String teamName) {
+        return new File(getTeamPrototypeFolder(arenaName, teamName) + "/data.bin");
+    }
+
+    @Override
+    public InputStream readTeamPrototypeConfig(String arenaName, String teamName) throws IOException {
+        return createInput(getTeamPrototypeConfig(arenaName, teamName));
+    }
+
+    @Override
+    public OutputStream createTeamPrototypeConfig(String arenaName, String teamName) throws IOException {
+        return createOutput(getTeamPrototypeConfig(arenaName, teamName));
+    }
+
+    @Override
+    public boolean hasTeamPrototypeConfig(String arenaName, String teamName) {
+        return getTeamPrototypeConfig(arenaName, teamName).exists();
+    }
+
+    @Override
+    public InputStream readTeamPrototypeBinary(String arenaName, String teamName) throws IOException {
+        return createInput(getTeamPrototypeBinary(arenaName, teamName));
+    }
+
+    @Override
+    public OutputStream writeTeamPrototypeBinary(String arenaName, String teamName) throws IOException {
+        return createOutput(getTeamPrototypeBinary(arenaName, teamName));
+    }
+
+    @Override
+    public boolean hasTeamPrototypeBinary(String arenaName, String teamName) {
+        return getTeamPrototypeBinary(arenaName, teamName).exists();
+    }
 }

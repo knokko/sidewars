@@ -12,7 +12,7 @@ public class VoidStorageManager implements StorageManager {
     }
 
     @Override
-    public OutputStream writeSWBinary() throws IOException {
+    public OutputStream writeSWBinary() {
         return new VoidOutputStream();
     }
 
@@ -27,7 +27,7 @@ public class VoidStorageManager implements StorageManager {
     }
 
     @Override
-    public OutputStream createSWConfig() throws IOException {
+    public OutputStream createSWConfig() {
         return new VoidOutputStream();
     }
 
@@ -42,7 +42,7 @@ public class VoidStorageManager implements StorageManager {
     }
 
     @Override
-    public OutputStream createArenaPrototypeConfig(String arenaPrototypeName) throws IOException {
+    public OutputStream createArenaPrototypeConfig(String arenaPrototypeName) {
         return new VoidOutputStream();
     }
 
@@ -57,12 +57,42 @@ public class VoidStorageManager implements StorageManager {
     }
 
     @Override
-    public OutputStream writeArenaPrototypeBinary(String arenaPrototypeName) throws IOException {
+    public OutputStream writeArenaPrototypeBinary(String arenaPrototypeName) {
         return new VoidOutputStream();
     }
 
     @Override
     public boolean hasArenaPrototypeBinary(String arenaPrototypeName) {
+        return false;
+    }
+
+    @Override
+    public InputStream readTeamPrototypeConfig(String arenaName, String teamName) throws IOException {
+        throw new IOException();
+    }
+
+    @Override
+    public OutputStream createTeamPrototypeConfig(String arenaName, String teamName) {
+        return new VoidOutputStream();
+    }
+
+    @Override
+    public boolean hasTeamPrototypeConfig(String arenaName, String teamName) {
+        return false;
+    }
+
+    @Override
+    public InputStream readTeamPrototypeBinary(String arenaName, String teamName) throws IOException {
+        throw new IOException();
+    }
+
+    @Override
+    public OutputStream writeTeamPrototypeBinary(String arenaName, String teamName) {
+        return new VoidOutputStream();
+    }
+
+    @Override
+    public boolean hasTeamPrototypeBinary(String arenaName, String teamName) {
         return false;
     }
 

@@ -1,5 +1,7 @@
 package org.grandknock.sidewars.core.storage;
 
+import javafx.util.Pair;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +13,9 @@ public class RAMStorageManager implements StorageManager {
 
     private final Map<String,byte[]> arenaBinaries = new HashMap<>();
     private final Map<String,byte[]> arenaConfigs = new HashMap<>();
+
+    private final Map<Pair<String,String>,byte[]> teamBinaries = new HashMap<>();
+    private final Map<Pair<String,String>,byte[]> teamConfigs = new HashMap<>();
 
     @Override
     public InputStream readSWBinary() throws IOException {
@@ -78,6 +83,40 @@ public class RAMStorageManager implements StorageManager {
     @Override
     public boolean hasArenaPrototypeBinary(String arenaPrototypeName) {
         return arenaBinaries.containsKey(arenaPrototypeName);
+    }
+
+    @Override
+    public InputStream readTeamPrototypeConfig(String arenaName, String teamName) throws IOException {
+        if (!hasTeamPrototypeConfig(arenaName, teamName))
+            throw new IOException("Arena " + arenaName + " doesn't have config for team " + teamName);
+        return new ByteArrayInputStream(teamConfigs.get(new Pair<>(arenaName, teamName)));
+    }
+
+    @Override
+    public OutputStream createTeamPrototypeConfig(String arenaName, String teamName) {
+        return new RAMOutputStream(bytes -> teamConfigs.put(new Pair<>(arenaName, teamName), bytes));
+    }
+
+    @Override
+    public boolean hasTeamPrototypeConfig(String arenaName, String teamName) {
+        return teamConfigs.containsKey(new Pair<>(arenaName, teamName));
+    }
+
+    @Override
+    public InputStream readTeamPrototypeBinary(String arenaName, String teamName) throws IOException {
+        if (!hasTeamPrototypeBinary(arenaName, teamName))
+            throw new IOException("Arena " + arenaName + " doesn't have binary for team " + teamName);
+        return new ByteArrayInputStream(teamBinaries.get(new Pair<>(arenaName, teamName)));
+    }
+
+    @Override
+    public OutputStream writeTeamPrototypeBinary(String arenaName, String teamName) throws IOException {
+        return new RAMOutputStream(bytes -> teamBinaries.put(new Pair<>(arenaName, teamName), bytes));
+    }
+
+    @Override
+    public boolean hasTeamPrototypeBinary(String arenaName, String teamName) {
+        return teamBinaries.containsKey(new Pair<>(arenaName, teamName));
     }
 
     private static class RAMOutputStream extends ByteArrayOutputStream {

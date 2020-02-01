@@ -25,7 +25,7 @@ public class ArenaPrototype {
             int numTeams = input.readInt();
             Set<TeamPrototype> loadedTeams = new HashSet<>(numTeams);
             for (int counter = 0; counter < numTeams; counter++)
-                loadedTeams.add(TeamPrototype.loadExisting(storage, name));
+                loadedTeams.add(TeamPrototype.loadExisting(storage, name, input.readUTF(), numTeams));
             arena.teams.addAll(loadedTeams);
         }, name);
         arena.updateConfig(storage);
@@ -69,7 +69,7 @@ public class ArenaPrototype {
         saveBinaryData(storage);
         // TODO Call saveData of all structures of this ArenaPrototype
         for (TeamPrototype team : teams)
-            team.saveData(storage);
+            team.saveData(storage, name);
     }
 
     private void saveBinaryData(StorageHelper storage) {
