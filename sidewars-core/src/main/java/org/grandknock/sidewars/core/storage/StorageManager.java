@@ -29,4 +29,16 @@ public interface StorageManager {
     OutputStream writeArenaPrototypeBinary(String arenaPrototypeName) throws IOException;
 
     boolean hasArenaPrototypeBinary(String arenaPrototypeName);
+
+    InputStream readTeamPrototypeConfig(String arenaName, String teamName) throws IOException;
+
+    OutputStream createTeamPrototypeConfig(String arenaName, String teamName) throws IOException;
+
+    boolean hasTeamPrototypeConfig(String arenaName, String teamName);
+
+    InputStream readTeamPrototypeBinary(String arenaName, String teamName) throws IOException;
+
+    OutputStream writeTeamPrototypeBinary(String arenaName, String teamName) throws IOException;
+
+    boolean hasTeamPrototypeBinary(String arenaName, String teamName);
 }

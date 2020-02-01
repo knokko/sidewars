@@ -164,6 +164,24 @@ public class StorageHelper {
         writeBinary(writer, () -> files.writeArenaPrototypeBinary(name), "Arena prototype " + name);
     }
 
+    public void getTeamPrototypeConfig(String arenaName, String teamName, ConfigReader reader,
+                                       ConfigWriter writer) {
+        getConfig(reader, writer, files.hasTeamPrototypeConfig(arenaName, teamName),
+                () -> files.readTeamPrototypeConfig(arenaName, teamName),
+                () -> files.createTeamPrototypeConfig(arenaName, teamName),
+                "TeamPrototype " + teamName + " for ArenaPrototype " + arenaName);
+    }
+
+    public void readTeamPrototypeBinary(DataReader reader, String arenaName, String teamName) {
+        readBinary(reader, () -> files.readTeamPrototypeBinary(arenaName, teamName),
+                "TeamPrototype " + teamName + " for ArenaPrototype " + arenaName);
+    }
+
+    public void writeTeamPrototypeBinary(DataWriter writer, String arenaName, String teamName) {
+        writeBinary(writer, () -> files.writeTeamPrototypeBinary(arenaName, teamName),
+                "TeamPrototype " + teamName + " for ArenaPrototype " + arenaName);
+    }
+
     @FunctionalInterface
     public interface DataWriter {
 
