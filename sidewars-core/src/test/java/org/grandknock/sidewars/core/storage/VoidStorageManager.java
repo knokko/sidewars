@@ -99,7 +99,7 @@ public class VoidStorageManager implements StorageManager {
     class VoidOutputStream extends OutputStream {
 
         @Override
-        public void write(int b) throws IOException {
+        public void write(int b) {
             // The idea of void is that it forgets everything
             // So... just don't store it
         }
